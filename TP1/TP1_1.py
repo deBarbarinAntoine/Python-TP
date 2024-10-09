@@ -5,8 +5,13 @@ class Temperature:
         self.val = val
 
     class Unit(Enum):
-        Celsius = "CELSIUS"
-        Fahrenheit = "FAHRENHEIT"
+        Celsius = "°C"
+        Fahrenheit = "°F"
+        def str(self):
+            return self.value
+
+    def get(self):
+        return self.val
 
     @staticmethod
     def new(val = 0.0):
@@ -18,9 +23,11 @@ class Temperature:
     def fahrenheit_to_celsius(self):
         return (self.val - 32) * 5 / 9
 
-    def convert_temperature(self, units: Unit):
+    def convert(self, units: Unit):
         match units:
             case self.Unit.Celsius:
-                return self.celsius_to_fahrenheit()
+                return self.celsius_to_fahrenheit(), self.Unit.Fahrenheit
             case self.Unit.Fahrenheit:
-                return self.fahrenheit_to_celsius()
+                return self.fahrenheit_to_celsius(), self.Unit.Celsius
+            case _:
+                raise ValueError(f'Unit {units} not supported')

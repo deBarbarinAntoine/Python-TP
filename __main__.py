@@ -1,33 +1,19 @@
-from TP1 import TP1_1
-import Utils
+import sys
+from CLI.main_menu import cli
+from GUI.main_window import main_window
 
 if __name__ == '__main__':
-    print("Welcome to the temperature converter!")
-    print("#####################################")
-    print()
-    print("1/ Celsius to Fahrenheit")
-    print("2/ Fahrenheit to Celsius")
-    print("0/ Exit")
-    while True:
-        try:
-            val = Utils.take_float("Choose an option: ")
-        except ValueError:
-            print("Please enter a valid number")
-            continue
-        match val:
-            case 0:
-                print("Bye!")
-                exit(0)
-            case 1:
-                print("Celsius to Fahrenheit")
-                temperature = TP1_1.Temperature.new(Utils.take_temp())
-                fahrenheit = temperature.convert_temperature(TP1_1.Temperature.Unit.Celsius)
-                print(f"{Utils.set_precision(fahrenheit)}°F")
-                break
-            case 2:
-                print("Fahrenheit to Celsius")
-                temperature = TP1_1.Temperature.new(Utils.take_temp())
-                celsius = temperature.convert_temperature(TP1_1.Temperature.Unit.Fahrenheit)
-                print(f"{Utils.set_precision(celsius)}°C")
-                break
-
+    if len(sys.argv) > 1:
+        args = sys.argv[1:]
+        match args[0]:
+            case 'gui':
+                main_window()
+            case 'cli':
+                cli()
+            case _:
+                print("Please enter a valid option")
+                print("gui -> run the program graphically")
+                print("cli -> run the program in the terminal")
+                exit(1)
+    else:
+        main_window()
