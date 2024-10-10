@@ -1,1 +1,8 @@
-[]
+[
+    {
+        "name": "Player",
+        "mode": "random",
+        "time": 30,
+        "score": 3
+    }
+]

@@ -16,7 +16,7 @@ class Game:
         self.current_result = 0
         self.answer = ''
         self.is_ongoing = False
-        self.timer_thread = threading.Thread(target=self.countdown(), daemon=True)
+        self.timer_thread = threading.Thread(target=self.countdown, daemon=True)
 
     class Mode(Enum):
         random = 0
@@ -74,17 +74,19 @@ class Game:
 
     def end_game(self):
         self.is_ongoing = False
-        score_entry = {'name': self.name, 'mode': self.mode, 'time': self.total_time, 'score': self.score}
+        score_entry = {'name': self.name, 'mode': self.mode.name, 'time': self.total_time, 'score': self.score}
         all_scores = json.JSONDecoder().decode(open('../Assets/scores.json').read())
         all_scores.append(score_entry)
         json_object = json.dumps(all_scores, indent=4)
-        with open('Assets/scores.json', 'w') as file:
+        with open('../Assets/scores.json', 'w') as file:
             file.write(json_object)
 
     def play(self):
+        print(f'play function, timer_thread is alive: {self.timer_thread.is_alive()}')
         while self.timer_thread.is_alive():
             self.answer = ''
             self.current_operation, self.current_result = self.new_operation()
+            print(f'self.current_operation: {self.current_operation}, self.current_result: {self.current_result}')
             while self.answer == '':
                 time.sleep(0.1)
             try:
