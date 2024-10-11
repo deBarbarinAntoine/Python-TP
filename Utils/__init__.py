@@ -1,3 +1,6 @@
+import sys
+
+
 def take_input(msg):
     val = input(msg)
     return val
@@ -41,3 +44,17 @@ def get_list_capitalized(msg):
 def get_csv_capitalized(var):
     names = var.split(',')
     return trim_capitalize(names)
+
+def get_divisors(num):
+    result = []
+    for i in range(1, num + 1):
+        if num % i == 0:
+            result.append(i)
+    return result
+
+def trim_min_max(arr, min = 0, max = sys.maxsize):
+    result = []
+    for elem in arr:
+        if min < elem < max:
+            result.append(elem)
+    return result

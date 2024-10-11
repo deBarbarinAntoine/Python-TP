@@ -2,9 +2,35 @@ import json
 import threading
 import time
 from enum import Enum
-from random import randint
+import random
+from typing import List
 
-class Game:
+import Utils
+from Utils import Classes
+from Utils.Classes import Observer
+
+
+class Game(Utils.Classes.Subject):
+
+    def attach(self, observer: Observer) -> None:
+        """
+        :param observer:
+        """
+        self._observers.append(observer)
+        pass
+
+    def detach(self, observer: Observer) -> None:
+        """
+        :param observer:
+        """
+        self._observers.remove(observer)
+        pass
+
+    def notify(self) -> None:
+        for observer in self._observers:
+            observer.update(self)
+        pass
+
     def __init__(self):
         self.name = 'Player'
         self.mode = Game.Mode.random
@@ -12,11 +38,14 @@ class Game:
         self.timeout = self.total_time
         self.score = 0
         self.timer = '00:30'
-        self.current_operation = ''
-        self.current_result = 0
-        self.answer = ''
-        self.is_ongoing = False
-        self.timer_thread = threading.Thread(target=self.countdown, daemon=True)
+        self.current_operation: str
+        self.current_result: int
+        self.answer: str
+        self._timer_thread = threading.Thread(target=self.countdown, daemon=True)
+        self._observers: List[Utils.Classes.Observer] = []
+
+    def is_ongoing(self) -> bool:
+        return self._timer_thread.is_alive()
 
     class Mode(Enum):
         random = 0
@@ -42,7 +71,7 @@ class Game:
 
     def new_operation(self):
         if self.mode == Game.Mode.random:
-            mode = Game.Mode(randint(1, 4))
+            mode = Game.Mode(random.randint(1, 4))
         else:
             mode = self.mode
         match mode:
@@ -68,12 +97,22 @@ class Game:
                     return a / b
             case _:
                 raise ValueError(f'Invalid mode {mode}')
-        num1 = randint(1, max1)
-        num2 = randint(1, max2)
+
+        num1 = random.randint(1, max1)
+
+        if mode == Game.Mode.division:
+            while True:
+                divisors = Utils.trim_min_max(Utils.get_divisors(num1), 1, 16)
+                if len(divisors) > 0:
+                    num2 = random.choice(divisors)
+                    break
+                num1 = random.randint(1, max1)
+        else:
+            num2 = random.randint(1, max2)
+
         return f'{num1} {op} {num2}', operation(num1, num2)
 
     def end_game(self):
-        self.is_ongoing = False
         score_entry = {'name': self.name, 'mode': self.mode.name, 'time': self.total_time, 'score': self.score}
         all_scores = json.JSONDecoder().decode(open('../Assets/scores.json').read())
         all_scores.append(score_entry)
@@ -82,8 +121,7 @@ class Game:
             file.write(json_object)
 
     def play(self):
-        print(f'play function, timer_thread is alive: {self.timer_thread.is_alive()}')
-        while self.timer_thread.is_alive():
+        while self._timer_thread.is_alive():
             self.answer = ''
             self.current_operation, self.current_result = self.new_operation()
             print(f'self.current_operation: {self.current_operation}, self.current_result: {self.current_result}')
@@ -101,15 +139,15 @@ class Game:
         self.end_game()
 
     def start(self):
-        self.is_ongoing = True
-        self.timer_thread.start()
+        self._timer_thread.start()
         game_thread = threading.Thread(target=self.play, daemon=True)
         game_thread.start()
 
 if __name__ == '__main__':
     game = Game.new()
     game.start()
-    while game.is_ongoing:
+
+    while game.is_ongoing():
         print(f'Time left: {game.timeout}')
         print(f'Score: {game.score}')
         print(f'Operation: {game.current_operation}')

@@ -4,5 +4,41 @@
         "mode": "random",
         "time": 30,
         "score": 3
+    },
+    {
+        "name": "Player",
+        "mode": "random",
+        "time": 30,
+        "score": 3
+    },
+    {
+        "name": "Player",
+        "mode": "random",
+        "time": 30,
+        "score": 2
+    },
+    {
+        "name": "Player",
+        "mode": "random",
+        "time": 30,
+        "score": 9
+    },
+    {
+        "name": "Player",
+        "mode": "random",
+        "time": 30,
+        "score": 0
+    },
+    {
+        "name": "Player",
+        "mode": "random",
+        "time": 30,
+        "score": 8
+    },
+    {
+        "name": "Player",
+        "mode": "random",
+        "time": 30,
+        "score": 8
     }
 ]
