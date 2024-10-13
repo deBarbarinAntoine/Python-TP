@@ -1,9 +1,10 @@
-import Utils
 from TP1 import TP1_2
+from Utils.Classes import Colors
+
 
 def cli():
-    print("Sum and Product of Even Numbers")
-    print("###############################")
+    print(f"{Colors.BOLD}Sum and Product of Even Numbers{Colors.END}")
+    print('▔' * 31)
     print()
     while True:
         val = input("Enter a number: ")

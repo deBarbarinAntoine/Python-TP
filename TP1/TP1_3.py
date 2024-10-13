@@ -6,7 +6,7 @@ def rand(min, max):
     return int(random() * (max - min) + min)
 
 def get_greetings():
-    json_greetings = json.JSONDecoder().decode(open('Assets/greetings.json').read())
+    json_greetings = json.JSONDecoder().decode(open('Data/greetings.json').read())
     return json_greetings['greetings'], json_greetings['names']
 
 _greetings, _names = get_greetings()

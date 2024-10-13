@@ -1,16 +1,30 @@
+import os
+import re
 import sys
+import termios
+import time
+
+from pynput import keyboard
 
 
-def take_input(msg):
+def take_input(msg = ''):
     val = input(msg)
     return val
 
-def take_float(msg):
+def take_float(msg = ''):
     val = take_input(msg)
     try:
         return float(val)
     except ValueError as e:
         raise e
+
+def take_int(msg = ''):
+    while True:
+        val = take_input(msg)
+        try:
+            return int(val)
+        except ValueError:
+            continue
 
 def take_temp():
     while True:
@@ -58,3 +72,11 @@ def trim_min_max(arr, min = 0, max = sys.maxsize):
         if min < elem < max:
             result.append(elem)
     return result
+
+def clear():
+    # Windows
+    if os.name == 'nt':
+        _ = os.system('cls')
+    # other OS
+    else:
+        _ = os.system('clear')

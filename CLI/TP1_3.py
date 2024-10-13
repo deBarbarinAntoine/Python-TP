@@ -1,9 +1,11 @@
 import Utils
 from TP1 import TP1_3
+from Utils.Classes import Colors
+
 
 def cli():
-    print("Welcome Message Generator")
-    print("#########################")
+    print(f"{Colors.BOLD}Welcome Message Generator{Colors.END}")
+    print('▔' * 25)
     print()
     while True:
         print("Enter a list of names (separated by space):")
