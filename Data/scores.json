@@ -12,7 +12,31 @@
         "score": 7
     },
     {
-        "name": "Thorgan",
+        "name": "Test",
+        "mode": "random",
+        "time": 30,
+        "score": 0
+    },
+    {
+        "name": "TestCLI",
+        "mode": "random",
+        "time": 30,
+        "score": 4
+    },
+    {
+        "name": "TestCLI",
+        "mode": "random",
+        "time": 30,
+        "score": 4
+    },
+    {
+        "name": "TestCLI",
+        "mode": "random",
+        "time": 30,
+        "score": 4
+    },
+    {
+        "name": "Test",
         "mode": "random",
         "time": 30,
         "score": 0
@@ -21,112 +45,16 @@
         "name": "Test",
         "mode": "random",
         "time": 30,
-        "score": -7
+        "score": -3
     },
     {
-        "name": "Thorgan",
-        "mode": "random",
-        "time": 30,
-        "score": -4
-    },
-    {
-        "name": "Thorgan",
-        "mode": "random",
-        "time": 30,
-        "score": -2
-    },
-    {
-        "name": "there",
+        "name": "ttest",
         "mode": "random",
         "time": 30,
         "score": 3
     },
     {
-        "name": "TestBufferKIO",
-        "mode": "random",
-        "time": 30,
-        "score": 2
-    },
-    {
-        "name": "ThorgTest",
-        "mode": "random",
-        "time": 30,
-        "score": 6
-    },
-    {
-        "name": "ThorgTest",
-        "mode": "random",
-        "time": 30,
-        "score": 6
-    },
-    {
-        "name": "ThorgTest",
-        "mode": "random",
-        "time": 30,
-        "score": -1
-    },
-    {
-        "name": "Thorgan",
-        "mode": "random",
-        "time": 30,
-        "score": 3
-    },
-    {
-        "name": "Thorg",
-        "mode": "random",
-        "time": 30,
-        "score": 2
-    },
-    {
-        "name": "Thorg",
-        "mode": "random",
-        "time": 30,
-        "score": 2
-    },
-    {
-        "name": "Thorg",
-        "mode": "random",
-        "time": 30,
-        "score": 2
-    },
-    {
-        "name": "Thorg",
-        "mode": "random",
-        "time": 30,
-        "score": 2
-    },
-    {
-        "name": "Thorg",
-        "mode": "random",
-        "time": 30,
-        "score": 2
-    },
-    {
-        "name": "Player",
-        "mode": "random",
-        "time": 30,
-        "score": 0
-    },
-    {
-        "name": "Thorg",
-        "mode": "random",
-        "time": 30,
-        "score": 6
-    },
-    {
-        "name": "Thorg",
-        "mode": "random",
-        "time": 30,
-        "score": 6
-    },
-    {
-        "name": "Thorg",
-        "mode": "random",
-        "time": 30,
-        "score": 0
-    },
-    {
-        "name": "Thorg",
+        "name": "test",
         "mode": "random",
         "time": 30,
         "score": 0

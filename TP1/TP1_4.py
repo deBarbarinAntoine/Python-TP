@@ -43,7 +43,7 @@ class Game(Utils.Classes.Subject):
         self._score_file: str = 'Data/scores.json'
 
     def is_ongoing(self) -> bool:
-        return self._timer_process.is_alive()
+        return self.timeout > 0
 
     class Mode(Enum):
         random = 0
