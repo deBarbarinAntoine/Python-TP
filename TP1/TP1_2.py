@@ -1,8 +1,8 @@
 def get_even_numbers(num):
     if num < 0:
         raise ValueError("Number must be positive")
-    if num > 100:
-        raise ValueError("Number must be less than 100")
+    if num > 25:
+        raise ValueError("Number must be less than 25")
     result = []
     if num == 0:
         result.append(0)

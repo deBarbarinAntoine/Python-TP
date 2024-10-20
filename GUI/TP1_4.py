@@ -1,5 +1,5 @@
-from tkinter import ttk, StringVar, Text, INSERT, DISABLED, IntVar
-
+from tkinter import *
+from tkinter import ttk
 from TP1.TP1_4 import Game
 from Utils.Classes import Observer
 
@@ -65,27 +65,31 @@ def game_init(tab):
     for child in tab.winfo_children():
         child.destroy()
 
-    ttk.Label(tab, text="Name:").grid(column=3, row=0, columnspan=2)
-    name = StringVar()
-    ttk.Entry(tab, textvariable=name).grid(column=2, row=1, columnspan=4)
+    tab.grid_columnconfigure(0, weight=1)
+    tab.grid_columnconfigure(1, weight=1)
+    ttk.Label(tab, text = 'Mental Arithmetic Game', font = ('Courier', 17, 'bold')).grid(row = 0, column = 0, columnspan = 2, padx = 5, pady = 20)
 
-    ttk.Label(tab, text="Timer:").grid(column=3, row=2, columnspan=2)
+    ttk.Label(tab, text="Name:").grid(row = 1, column = 0, sticky = E, padx = 30)
+    name = StringVar()
+    ttk.Entry(tab, textvariable=name).grid(row = 1, column = 1, sticky = W, padx = 30)
+
+    ttk.Label(tab, text="Timer:").grid(row = 2, column = 0, sticky = E, padx = 30)
     timer = IntVar()
     timer.set(30)
-    ttk.Radiobutton(tab, text='30 secs', variable=timer, value=30).grid(column=2, row=3)
-    ttk.Radiobutton(tab, text='1 min', variable=timer, value=60).grid(column=3, row=3)
-    ttk.Radiobutton(tab, text='1 min 30 secs', variable=timer, value=90).grid(column=4, row=3)
-    ttk.Radiobutton(tab, text='2 min', variable=timer, value=120).grid(column=5, row=3)
+    ttk.Radiobutton(tab, text='30 secs', variable=timer, value=30).grid(row = 2, column = 1, sticky = W, padx = 30)
+    ttk.Radiobutton(tab, text='1 min', variable=timer, value=60).grid(row = 3, column = 1, sticky = W, padx = 30)
+    ttk.Radiobutton(tab, text='1 min 30 secs', variable=timer, value=90).grid(row = 4, column = 1, sticky = W, padx = 30)
+    ttk.Radiobutton(tab, text='2 min', variable=timer, value=120).grid(row = 5, column = 1, sticky = W, padx = 30)
 
-    ttk.Label(tab, text="Mode:").grid(column=3, row=4, columnspan=2)
+    ttk.Label(tab, text="Mode:").grid(row = 6, column = 0, sticky = E, padx = 30)
     mode = IntVar()
-    ttk.Radiobutton(tab, text=Game.Mode.random.name, variable=mode, value=Game.Mode.random.value).grid(column=2, row=5)
-    ttk.Radiobutton(tab, text=Game.Mode.addition.name, variable=mode, value=Game.Mode.addition.value).grid(column=3, row=5)
-    ttk.Radiobutton(tab, text=Game.Mode.subtraction.name, variable=mode, value=Game.Mode.subtraction.value).grid(column=4, row=5)
-    ttk.Radiobutton(tab, text=Game.Mode.multiplication.name, variable=mode, value=Game.Mode.multiplication.value).grid(column=5, row=5)
-    ttk.Radiobutton(tab, text=Game.Mode.division.name, variable=mode, value=Game.Mode.division.value).grid(column=6, row=5)
+    ttk.Radiobutton(tab, text=Game.Mode.random.name, variable=mode, value=Game.Mode.random.value).grid(row = 6, column = 1, sticky = W, padx = 30)
+    ttk.Radiobutton(tab, text=Game.Mode.addition.name, variable=mode, value=Game.Mode.addition.value).grid(row = 7, column = 1, sticky = W, padx = 30)
+    ttk.Radiobutton(tab, text=Game.Mode.subtraction.name, variable=mode, value=Game.Mode.subtraction.value).grid(row = 8, column = 1, sticky = W, padx = 30)
+    ttk.Radiobutton(tab, text=Game.Mode.multiplication.name, variable=mode, value=Game.Mode.multiplication.value).grid(row = 9, column = 1, sticky = W, padx = 30)
+    ttk.Radiobutton(tab, text=Game.Mode.division.name, variable=mode, value=Game.Mode.division.value).grid(row = 10, column = 1, sticky = W, padx = 30)
 
-    ttk.Button(tab, text='Start', command=lambda : start(tab, name.get(), timer.get(), mode.get())).grid(column=2, row=6, columnspan=4)
+    ttk.Button(tab, text='Start', command=lambda : start(tab, name.get(), timer.get(), mode.get())).grid(row = 11, column = 0, columnspan=2)
 
 def start(tab, name, timer, mode):
     if name == '':
@@ -118,6 +122,7 @@ def start(tab, name, timer, mode):
     game_gui.answer_entry.grid(column=2, row=5, columnspan=4)
     game_gui.answer_entry.focus()
     game_gui.answer_entry.bind(sequence='<Return>', func=lambda e: game_gui.answer(answer.get()))
+    game_gui.answer_entry.bind(sequence='<KP_Enter>', func=lambda e: game_gui.answer(answer.get()))
 
     ttk.Button(game_gui.tab, text='Answer', command=lambda: game_gui.answer(answer.get())).grid(column=3, row=6, columnspan=2)
 

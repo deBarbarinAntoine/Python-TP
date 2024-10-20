@@ -58,5 +58,11 @@
         "mode": "random",
         "time": 30,
         "score": 0
+    },
+    {
+        "name": "test",
+        "mode": "random",
+        "time": 30,
+        "score": 6
     }
 ]
