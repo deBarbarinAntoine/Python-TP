@@ -2,7 +2,8 @@ from tkinter import *
 from tkinter import ttk, messagebox
 
 import Utils
-from TP1 import TP1_1
+from TP1.Models import TP1_1
+
 
 class TemperatureModule:
     def __init__(self):
@@ -24,22 +25,26 @@ class TemperatureModule:
 def temp_init(tab):
     for child in tab.winfo_children():
         child.destroy()
-    ttk.Label(tab, text = 'Temperature Converter', font = ('Courier', 17, 'bold')).grid(row = 0, column = 0, columnspan = 3, padx = 5, pady = 20)
+        
+    frame = ttk.Frame(tab)
+    frame.pack(expand = True, fill = BOTH)
+    
+    ttk.Label(frame, text = 'Temperature Converter', font = ('Courier', 17, 'bold')).grid(row = 0, column = 0, columnspan = 3, padx = 5, pady = 20)
 
     temp = StringVar()
     unit = StringVar()
     temp.set('0')
-    ttk.Label(tab, text= 'Temperature').grid(row = 1, column = 0, padx = 5, pady = 5, sticky = 'e')
-    spinbox = ttk.Spinbox(tab, from_ = -459.67, to = 100_000, increment = 1, textvariable = temp, width = 6)
+    ttk.Label(frame, text= 'Temperature').grid(row = 1, column = 0, padx = 5, pady = 5, sticky = 'e')
+    spinbox = ttk.Spinbox(frame, from_ = -459.67, to = 100_000, increment = 1, textvariable = temp, width = 6)
     spinbox.grid(row = 1, column = 1, padx = 5, pady = 5)
-    ttk.OptionMenu(tab, unit, 'ºC', 'ºF', 'ºC').grid(row = 1, column = 2, padx = 5, pady = 5, sticky = 'w')
+    ttk.OptionMenu(frame, unit, 'ºC', 'ºF', 'ºC').grid(row = 1, column = 2, padx = 5, pady = 5, sticky = 'w')
     
-    tab.grid_columnconfigure(0, weight = 1)
-    tab.grid_columnconfigure(1, weight = 0)
-    tab.grid_columnconfigure(2, weight = 1)
+    frame.grid_columnconfigure(0, weight = 1)
+    frame.grid_columnconfigure(1, weight = 0)
+    frame.grid_columnconfigure(2, weight = 1)
     
-    temp_module = TemperatureModule.new(tab)
-    button = ttk.Button(tab, text = 'Convert', command = lambda : convert(temp_module, temp.get(), unit.get()))
+    temp_module = TemperatureModule.new(frame)
+    button = ttk.Button(frame, text = 'Convert', command = lambda : convert(temp_module, temp.get(), unit.get()))
     button.grid(column = 0, row = 2, columnspan = 3)
     
     spinbox.focus()

@@ -1,7 +1,8 @@
 from tkinter import ttk
 from tkinter import *
 import Utils
-from TP1 import TP1_3
+from TP1.Models import TP1_3
+
 
 class GreetModule:
     def __init__(self):
@@ -33,17 +34,21 @@ class GreetModule:
 def greet_init(tab):
     for child in tab.winfo_children():
         child.destroy()
-    tab.grid_columnconfigure(0, weight = 1)
+        
+    frame = ttk.Frame(tab)
+    frame.pack(fill = BOTH, expand = True)
     
-    ttk.Label(tab, text = 'Welcome Message Generator', font = ('Courier', 17, 'bold')).grid(row = 0, column = 0, padx = 5, pady = 20)
+    frame.grid_columnconfigure(0, weight = 1)
     
-    ttk.Label(tab, text="Type a list of names (separated by comma [CSV]):").grid(row = 1, column = 0, padx = 5, pady = 8)
+    ttk.Label(frame, text = 'Welcome Message Generator', font = ('Courier', 17, 'bold')).grid(row = 0, column = 0, padx = 5, pady = 20)
+    
+    ttk.Label(frame, text="Type a list of names (separated by comma [CSV]):").grid(row = 1, column = 0, padx = 5, pady = 8)
     names = StringVar()
-    entry = ttk.Entry(tab, textvariable = names, width = 25)
+    entry = ttk.Entry(frame, textvariable = names, width = 25)
     entry.grid(row = 2, column = 0, padx = 5, pady = 8)
-    greet_module = GreetModule.new(tab)
+    greet_module = GreetModule.new(frame)
     
-    button = ttk.Button(tab, text = 'Validate', command = lambda : compose(greet_module, names.get()))
+    button = ttk.Button(frame, text = 'Validate', command = lambda : compose(greet_module, names.get()))
     button.grid(row = 3, column = 0, padx = 5, pady = 12)
     entry.focus()
     entry.bind('<Return>', lambda event: button.invoke())

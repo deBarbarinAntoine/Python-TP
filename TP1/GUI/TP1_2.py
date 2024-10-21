@@ -1,7 +1,8 @@
 from tkinter import ttk, messagebox
 from tkinter import *
 
-from TP1 import TP1_2
+from TP1.Models import TP1_2
+
 
 class NumModule:
     def __init__(self):
@@ -37,17 +38,23 @@ def num_init(tab):
     for child in tab.winfo_children():
         child.destroy()
     
-    ttk.Label(tab, text = 'Sum & Product of Even Numbers', font = ('Courier', 17, 'bold')).grid(row = 0, column = 0, columnspan = 2, padx = 5, pady = 20)
+    frame = ttk.Frame(tab)
+    frame.pack(fill = BOTH, expand = True)
+    
+    ttk.Label(frame, text = 'Sum & Product of Even Numbers', font = ('Courier', 17, 'bold')).grid(row = 0, column = 0, columnspan = 2, padx = 5, pady = 20)
 
     num = StringVar()
     num.set('6')
-    ttk.Label(tab, text= 'Positive integer').grid(row = 1, column = 0, padx = 5, pady = 5)
-    spinbox = ttk.Spinbox(tab, from_ = 0, to = 25, increment = 1, textvariable = num, width = 2)
+    ttk.Label(frame, text= 'Positive integer').grid(row = 1, column = 0, padx = 5, pady = 5, sticky = E)
+    spinbox = ttk.Spinbox(frame, from_ = 0, to = 25, increment = 1, textvariable = num, width = 2)
     spinbox.grid(row = 1, column = 1, padx = 5, pady = 5, sticky = W)
     
-    num_module = NumModule.new(tab)
+    frame.grid_columnconfigure(index = 0, weight = 1)
+    frame.grid_columnconfigure(index = 1, weight = 1)
     
-    button = ttk.Button(tab, text='Validate', command=lambda : compute(num_module, num.get()))
+    num_module = NumModule.new(frame)
+    
+    button = ttk.Button(frame, text='Validate', command=lambda : compute(num_module, num.get()))
     
     spinbox.focus()
     spinbox.bind('<Return>', lambda e: button.invoke())
