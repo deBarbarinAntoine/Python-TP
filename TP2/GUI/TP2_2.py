@@ -1,5 +1,7 @@
 from tkinter import ttk
 from tkinter import *
+from typing import List
+
 from TP2.Models.TP2_2 import *
 
 
@@ -38,7 +40,7 @@ def avg_median_init(tab):
     separator = ttk.Separator(frame, orient = HORIZONTAL)
 
     # set the button
-    button = ttk.Button(frame, text='Calculate', command=lambda: analyze(label, separator, values.get(), format_))
+    button = ttk.Button(frame, text='Calculate', command=lambda: analyze(label, separator, values.get(), format_.get()))
     button.grid(row=3, column=0, columnspan = 2, padx=5, pady=12)
 
     # focus on the entry element and bind it to the Enter keys
@@ -66,31 +68,42 @@ def analyze(label, separator, values, format_):
         case 'Manual CSV':
             arr = Utils.get_csv_capitalized(values)
         case 'JSON file':
-            arr = Utils.get_list_from_json(values)
+            try:
+                arr = Utils.get_list_from_json(values)
+            except FileNotFoundError:
+                label.config(text = 'JSON file not found')
+                return
         case 'CSV file':
-            arr = Utils.get_list_from_csv(values)
+            try:
+                arr = Utils.get_list_from_csv(values)
+            except FileNotFoundError:
+                label.config(text = 'CSV file not found')
+                return
         case _:
-            label.config(text = 'Invalid format')
+            label.config(text = f'Invalid format: {format_}')
             return
 
     if len(arr) == 0:
         label.config(text = 'No results found.')
         return
 
-    # DEBUG
-    print(f'values: {arr}')
+
+    arr_float: List[float] = []
 
     # make sure the values are numbers
     for value in arr:
         try:
-            float(value)
+            arr_float.append(float(value))
         except ValueError:
             label.config(text = 'Invalid format')
             return
 
+    # DEBUG
+    print(f'values: {arr_float}')
+
     # calculate the average and the median
-    avg = average(arr)
-    med = median(arr)
+    avg = Utils.set_precision(average(*arr_float))
+    med = Utils.set_precision(median(*arr_float))
 
     # display the result in the GUI
     label.config(text = f'The average value is {avg} and the median value is {med}.')

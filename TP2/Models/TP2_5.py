@@ -12,6 +12,6 @@ def dice_throw(num: int = 1, val: int = 6) -> dict[int, int]:
 
 
 if __name__ == '__main__':
-    print(Utils.sort_dict(dice_throw(10_000, 20), 'desc'))
-    throws = Utils.gen_mult_array(nb = 10, len_range = (1_000, 10_000), val_range = (1, 6))
+    # print(Utils.sort_dict(dice_throw(10_000, 20), 'desc'))
+    throws = Utils.gen_mult_array(nb = 10, len_range = (5, 50), val_range = (1, 1024))
     graph_draw(throws)

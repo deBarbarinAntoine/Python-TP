@@ -1,4 +1,5 @@
 import csv
+import itertools
 import json
 import random
 import sys
@@ -168,19 +169,26 @@ def graph_draw(data: list | dict | tuple | set):
 
 def get_list_from_json(filename: str) -> list:
     try:
-        arr = json.JSONDecoder().decode(open(filename).read())
+        json_file = open(filename, 'r')
+        arr = json.JSONDecoder().decode(json_file.read())
+        json_file.close()
         return arr
     except json.decoder.JSONDecodeError:
         raise FileNotFoundError
 
 
 def get_list_from_csv(filename: str) -> list:
-    arr: list = []
+
     try:
-        file = open(filename)
+        file = open(filename, 'r')
     except FileNotFoundError as e:
         raise e
-    for line in file:
-        arr.append(csv.reader(line))
-    return arr
+
+    raw_content = list(csv.reader(file, delimiter = ','))
+
+    iterable_content = itertools.chain.from_iterable(raw_content)
+
+    file.close()
+
+    return list(iterable_content)
 
