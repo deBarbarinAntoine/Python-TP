@@ -2,11 +2,8 @@ import json
 from threading import Thread
 import time
 from enum import Enum
-import random
-from typing import List
 import Utils
-from Utils import Classes
-from Utils.Classes import Observer
+from Utils import *
 
 
 class Game(Utils.Classes.Subject):

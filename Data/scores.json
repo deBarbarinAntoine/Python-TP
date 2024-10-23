@@ -118,5 +118,23 @@
         "mode": "random",
         "time": 30,
         "score": 0
+    },
+    {
+        "name": "test",
+        "mode": "random",
+        "time": 30,
+        "score": 6
+    },
+    {
+        "name": "test",
+        "mode": "random",
+        "time": 30,
+        "score": -14
+    },
+    {
+        "name": "test",
+        "mode": "division",
+        "time": 30,
+        "score": 5
     }
 ]
