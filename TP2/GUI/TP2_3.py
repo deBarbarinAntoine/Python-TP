@@ -1,11 +1,12 @@
-from tkinter import ttk
 from tkinter import *
-from TP2.Models.TP2_2 import *
+from Utils import *
+from TP2.Models.TP2_2 import average, median
+from TP2.Models.TP2_3 import variance, std_dev
 
 
-def avg_median_init(tab):
+def variance_stddev_init(tab):
     """
-    Initialize the Average & Median GUI contents.
+    Initialize the Variance & Standard Deviation GUI contents.
     :param tab: the master ttk element
     """
 
@@ -18,10 +19,10 @@ def avg_median_init(tab):
     frame.pack(fill=BOTH, expand=True)
 
     # set the title
-    ttk.Label(frame, text='Average & Median Calculator', font=('Courier', 17, 'bold')).grid(row=0, column=0, columnspan = 2, padx=5, pady=20)
+    ttk.Label(frame, text='Variance & Standard Deviation Calculator', font=('Courier', 17, 'bold')).grid(row=0, column=0, columnspan = 2, padx=5, pady=20)
 
     # create the input elements
-    ttk.Label(frame, text="Values to analyze:").grid(row=1, column=0, columnspan = 2, padx=5, pady=(20, 12))
+    ttk.Label(frame, text="Prices to analyze:").grid(row=1, column=0, columnspan = 2, padx=5, pady=(20, 12))
     values = StringVar()
     format_ = StringVar()
     format_.set('Manual CSV')
@@ -99,9 +100,13 @@ def analyze(label, separator, values, format_):
     # DEBUG
     print(f'values: {arr_float}')
 
-    # calculate the average and the median
+    # calculate the variance and the standard deviation
     avg = set_precision(average(*arr_float))
     med = set_precision(median(*arr_float))
+    var = set_precision(variance(*arr_float))
+    stddev = set_precision(std_dev(*arr_float))
 
     # display the result in the GUI
-    label.config(text = f'The average value is {avg} and the median value is {med}.')
+    label.config(text = f"""
+    The average is {avg} and the median is {med}
+    The variance is {var} and its standard deviation is {stddev}""")

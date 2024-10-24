@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import ttk, messagebox
 from TP1.Models.TP1_4 import Game
-from Utils.Classes import Observer
+from Utils import *
 
 
 class GameGUI(Observer):

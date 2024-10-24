@@ -1,20 +1,40 @@
 import statistics
-import Utils
+from Utils import *
 
 
 def average(*nums: float) -> float:
+    """
+    Calculates the average of a list of numbers using the statistics module
+    :param nums: the values
+    :return: the results
+    """
     return statistics.mean(nums)
 
 
 def average_(*nums: float) -> float:
+    """
+    Calculates the average of a list of numbers using a self-made algorithm
+    :param nums: the values
+    :return: the results
+    """
     return sum(nums) / len(nums)
 
 
 def median(*nums: float) -> float:
+    """
+    Calculates the median of a list of numbers using the statistics module
+    :param nums: the values
+    :return: the results
+    """
     return statistics.median(nums)
 
 
 def median_(*nums: float) -> float:
+    """
+    Calculates the median of a list of numbers using a self-made algorithm
+    :param nums: the values
+    :return: the results
+    """
     nums = sorted(nums)
     if len(nums) % 2 == 0:
         middle = len(nums) // 2
@@ -23,7 +43,8 @@ def median_(*nums: float) -> float:
 
 
 def compare_funcs():
-    array_ = Utils.gen_array()
+    """Compare the functions using the statistics module and the self-made algorithms"""
+    array_ = gen_array()
     print(f'statistics.average: {average(*array_)} | average_: {average_(*array_)}')
     print(f'statistics.median: {median(*array_)} | median_: {median_(*array_)}')
 

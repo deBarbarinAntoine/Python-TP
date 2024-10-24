@@ -5,6 +5,8 @@ import random
 import sys
 from typing import *
 import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
+from tkinter import ttk
 
 
 def set_precision(val, precision=2):
@@ -39,6 +41,30 @@ def get_csv_capitalized(var):
     """
     names = var.split(',')
     return trim_capitalize(names)
+
+def get_csv_numbers(var, type_: str = 'float'):
+    """
+    Converts a comma separated values in a string to an array of trimmed numbers.
+    :param var: the string with comma separated values to be converted
+    :param type_: the type of number to be converted into
+    :return: the array of trimmed numbers
+    :raise ValueError: if any element of var is not a number of the specified type
+    """
+    values = var.split(',')
+    
+    for i in range(len(values)):
+        if type_ == 'float':
+            try:
+                values[i] = float(values[i].strip())
+            except ValueError:
+                raise ValueError('Incorrect decimal number format.')
+        elif type_ == 'int':
+            try:
+                values[i] = int(values[i].strip())
+            except ValueError:
+                raise ValueError('Incorrect integer number format.')
+    
+    return values
 
 
 def get_divisors(num):
@@ -76,6 +102,11 @@ def trim_min_max(arr, min_=0, max_=sys.maxsize):
 
 
 def list_to_dict(arr: List[Any]) -> dict[Any, int]:
+    """
+    Converts a list to a dictionary of {value: occurrences}.
+    :param arr: the list to be converted
+    :return: the converted list
+    """
     result: dict[Any, int] = {}
     for elem in arr:
         if elem not in result:
@@ -86,6 +117,12 @@ def list_to_dict(arr: List[Any]) -> dict[Any, int]:
 
 
 def sort_dict(dic: dict[Any, int], order: str = 'asc') -> dict[Any, int]:
+    """
+    Sorts the given dictionary according to the given order.
+    :param dic: the dictionary to be sorted
+    :param order: the order to be sorted with
+    :return: the sorted dictionary
+    """
     match order:
         case 'asc':
             return dict(sorted(dic.items(), key=lambda item: item[1]))
@@ -137,7 +174,10 @@ def gen_array(len_range: tuple[int, int] = (5, 100), val_range: tuple[int, int] 
 
     # generate every value of the array
     for _ in range(len_):
-        array_.append(set_precision(random.random() * (range_max - range_min) + range_min, precision))
+        if precision == 0:
+            array_.append((int(random.random() * 1_000_000_000_000) % int(range_max - range_min + 1)) + range_min)
+        else:
+            array_.append(set_precision(random.random() * (range_max - range_min) + range_min, precision))
 
     return array_
 
@@ -157,17 +197,72 @@ def gen_mult_array(nb: int = 10, len_range: tuple[int, int] = (5, 100), val_rang
     return array_
 
 
-def graph_draw(data: list | dict | tuple | set):
+def graph_draw(data: list | dict | tuple | set, frame: ttk.Frame = None) -> None:
+    """
+    Draws a graph with given data and, if there is a frame,
+     draw it there, else, save it in `Data/graph.png`.
+    :param data: the data to be drawn
+    :param frame: the frame to be drawn
+    """
     fig, ax = plt.subplots()
     ax.boxplot(data, showmeans = True)
     plt.xlabel("groups")
     if type(data) == dict:
         ax.set_xticklabels(data.keys())
     plt.ylabel("values")
-    plt.savefig('../Data/graph.png')
+    if frame:
+        for child in frame.winfo_children():
+            child.destroy()
+        canvas = FigureCanvasTkAgg(fig,
+                                   master = frame)
+        canvas.draw()
+        canvas.get_tk_widget().pack()
+        toolbar = NavigationToolbar2Tk(canvas, frame)
+        toolbar.update()
+        canvas.get_tk_widget().pack()
+    else:
+        plt.savefig('../Data/graph.png')
+        
+def bar_graph_draw(data: dict, frame: ttk.Frame = None) -> None:
+    """
+    Draws a bar graph with the given data dictionary and, if there is a frame,
+     draw it there, else, save it in `Data/bar_graph.png`.
+    :param data: the data dictionary
+    :param frame: the ttk.Frame to draw the bar graph
+    """
+    values = list(data.keys())
+    occurrences = list(data.values())
+    
+    fig = plt.figure(figsize = (10, 5))
+    
+    # creating the bar plot
+    plt.bar(values, occurrences, color ='blue',
+            width = 0.4)
+    
+    plt.xlabel("Values")
+    plt.ylabel("No. of occurrences")
+    
+    if frame:
+        for child in frame.winfo_children():
+            child.destroy()
+        canvas = FigureCanvasTkAgg(fig,
+                                   master = frame)
+        canvas.draw()
+        canvas.get_tk_widget().pack()
+        toolbar = NavigationToolbar2Tk(canvas,
+                                       frame)
+        toolbar.update()
+        canvas.get_tk_widget().pack()
+    else:
+        plt.savefig('../Data/bar_graph.png')
 
 
 def get_list_from_json(filename: str) -> list:
+    """
+    Gets a list from a JSON file.
+    :param filename: the path of the JSON file
+    :return: the list
+    """
     try:
         json_file = open(filename, 'r')
         arr = json.JSONDecoder().decode(json_file.read())
@@ -178,6 +273,11 @@ def get_list_from_json(filename: str) -> list:
 
 
 def get_list_from_csv(filename: str) -> list:
+    """
+    Gets a list from a CSV file.
+    :param filename: the path of the CSV file
+    :return: the list
+    """
 
     try:
         file = open(filename, 'r')

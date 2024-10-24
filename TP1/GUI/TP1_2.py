@@ -71,8 +71,7 @@ def num_init(tab):
     ttk.Label(frame, text = 'Sum & Product of Even Numbers', font = ('Courier', 17, 'bold')).grid(row = 0, column = 0, columnspan = 2, padx = 5, pady = 20)
 
     # create the input elements
-    num = StringVar()
-    num.set('6')
+    num = StringVar(value = '6')
     ttk.Label(frame, text= 'Positive integer').grid(row = 1, column = 0, padx = 5, pady = 20, sticky = E)
     spinbox = ttk.Spinbox(frame, from_ = 0, to = 25, increment = 1, textvariable = num, width = 2)
     spinbox.grid(row = 1, column = 1, padx = 5, pady = 20, sticky = W)
