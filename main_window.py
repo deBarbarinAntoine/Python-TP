@@ -1,16 +1,9 @@
 from tkinter import *
 from tkinter import ttk
+from matplotlib import pyplot as plt
 from ttkthemes import ThemedTk
-from TP1.GUI.TP1_1 import temp_init
-from TP1.GUI.TP1_2 import num_init
-from TP1.GUI.TP1_3 import greet_init
-from TP1.GUI.TP1_4 import game_init
-from TP1.GUI.TP1_5 import leap_year_init
-from TP2.GUI.TP2_1 import perfect_num_init
-from TP2.GUI.TP2_2 import avg_median_init
-from TP2.GUI.TP2_3 import variance_stddev_init
-from TP2.GUI.TP2_4 import age_analyzer_init
-from TP2.GUI.TP2_5 import dice_thrower_init
+from TP1 import *
+from TP2 import *
 
 
 def quit_app(window):
@@ -20,7 +13,8 @@ def quit_app(window):
     """
     for widget in window.winfo_children():
         widget.destroy()
-    
+        plt.close('all')
+
     window.destroy()
     exit(0)
 
@@ -31,7 +25,7 @@ def main_window():
     
     # setting the main window
     window = ThemedTk(theme = "arc")
-    window.geometry('1440x680')
+    window.geometry(f'{window.winfo_screenwidth()}x{window.winfo_screenheight()}')
     window.title('TP Python - Antoine de Barbarin')
     icon = PhotoImage(file = "Data/python.png")
     window.iconphoto(True, icon)

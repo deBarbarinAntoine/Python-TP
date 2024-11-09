@@ -153,7 +153,10 @@ def analyze(label: ttk.Label, image_ctn: ttk.Frame, separator: ttk.Separator, va
 
     # create the age_ranges
     age_ranges: list[tuple] = []
-    min_age: int = 0
+    if min_range:
+        min_age: int = min_range
+    else:
+        min_age = 0
 
     # format the age groups in a list of tuples to fill the age_ranges variable
     for max_age in groups:

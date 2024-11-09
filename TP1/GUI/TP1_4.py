@@ -244,10 +244,10 @@ def show_scores(tab):
     # display the header before beginning
     i: int = 0
     ttk.Label(inner_frame, text = 'Rank', font = ('Courier', 11, 'bold')).grid(row = i, column = 0, padx = (0, 20), pady = 5, sticky = W)
-    ttk.Label(inner_frame, text = f'{'Name':<25}', font = ('Courier', 11, 'bold')).grid(row = i, column = 1, padx = 20, pady = 5, sticky = W)
-    ttk.Label(inner_frame, text = f'{'Mode':<15}', font = ('Courier', 11, 'bold')).grid(row = i, column = 2, padx = 20, pady = 5, sticky = W)
-    ttk.Label(inner_frame, text = f'{'Time':<5}', font = ('Courier', 11, 'bold')).grid(row = i, column = 3, padx = 20, pady = 5, sticky = W)
-    ttk.Label(inner_frame, text = f'{'Score':>10}', font = ('Courier', 11, 'bold')).grid(row = i, column = 4, padx = 20, pady = 5, sticky = E)
+    ttk.Label(inner_frame, text = f'{"Name":<25}', font = ('Courier', 11, 'bold')).grid(row = i, column = 1, padx = 20, pady = 5, sticky = W)
+    ttk.Label(inner_frame, text = f'{"Mode":<15}', font = ('Courier', 11, 'bold')).grid(row = i, column = 2, padx = 20, pady = 5, sticky = W)
+    ttk.Label(inner_frame, text = f'{"Time":<5}', font = ('Courier', 11, 'bold')).grid(row = i, column = 3, padx = 20, pady = 5, sticky = W)
+    ttk.Label(inner_frame, text = f'{"Score":>10}', font = ('Courier', 11, 'bold')).grid(row = i, column = 4, padx = 20, pady = 5, sticky = E)
 
     ttk.Separator(inner_frame, orient = HORIZONTAL).grid(row = 1, column = 0, columnspan = 5, pady = 5, sticky = EW)
 
@@ -266,8 +266,8 @@ def show_scores(tab):
         min, sec = divmod(time, 60)
         timer = f'{min}:{sec}'
         ttk.Label(inner_frame, text = f'{i:2}.').grid(row = i + 1, column = 0, padx = (0, 20), pady = 5, sticky = W)
-        ttk.Label(inner_frame, text = f'{score['name']:<25}').grid(row = i + 1, column = 1, padx = 20, pady = 5, sticky = W)
-        ttk.Label(inner_frame, text = f'{score['mode']:<15}').grid(row = i + 1, column = 2, padx = 20, pady = 5, sticky = W)
+        ttk.Label(inner_frame, text = f'{score["name"]:<25}').grid(row = i + 1, column = 1, padx = 20, pady = 5, sticky = W)
+        ttk.Label(inner_frame, text = f'{score["mode"]:<15}').grid(row = i + 1, column = 2, padx = 20, pady = 5, sticky = W)
         ttk.Label(inner_frame, text = f'{timer:<5}').grid(row = i + 1, column = 3, padx = 20, pady = 5, sticky = W)
         ttk.Label(inner_frame, text = f'{score["score"]:>10}').grid(row = i + 1, column = 4, padx = 20, pady = 5, sticky = E)
     
