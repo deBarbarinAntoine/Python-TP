@@ -230,14 +230,14 @@ def bar_graph_draw(data: dict, frame: ttk.Frame = None) -> None:
     :param data: the data dictionary
     :param frame: the ttk.Frame to draw the bar graph
     """
+    
     values = list(data.keys())
     occurrences = list(data.values())
     
     fig = plt.figure(figsize = (10, 5))
     
     # creating the bar plot
-    plt.bar(values, occurrences, color ='blue',
-            width = 0.4)
+    plt.bar(values, occurrences, color ='blue', width = 0.4)
     
     plt.xlabel("Values")
     plt.ylabel("No. of occurrences")
@@ -245,12 +245,10 @@ def bar_graph_draw(data: dict, frame: ttk.Frame = None) -> None:
     if frame:
         for child in frame.winfo_children():
             child.destroy()
-        canvas = FigureCanvasTkAgg(fig,
-                                   master = frame)
+        canvas = FigureCanvasTkAgg(fig, master = frame)
         canvas.draw()
         canvas.get_tk_widget().pack()
-        toolbar = NavigationToolbar2Tk(canvas,
-                                       frame)
+        toolbar = NavigationToolbar2Tk(canvas, frame)
         toolbar.update()
         canvas.get_tk_widget().pack()
     else:
