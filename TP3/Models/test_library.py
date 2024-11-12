@@ -1,6 +1,6 @@
 import unittest
 from io import StringIO
-from unittest import TestCase
+from unittest import TestCase, TestLoader, TextTestRunner
 from unittest.mock import patch
 
 try:
@@ -121,10 +121,12 @@ class TestLibrary(TestCase):
         self.assertTrue(ok, "error removing book by id")
         self.assertEqual(library.books, [])
 
-def main() -> str:
-    with patch('sys.stdout', new = StringIO()) as fake_out:
-        unittest.main(verbosity=2)
-        return fake_out.getvalue()
+def test_library_run() -> str:
+    test = TestLoader().loadTestsFromTestCase(TestLibrary)
+    with patch('sys.stdout', new_callable = StringIO) as fake_out:
+        TextTestRunner(stream=fake_out, verbosity=2).run(test)
+        result = fake_out.getvalue()
+        return result
 
 if __name__ == '__main__':
-    print(main())
+    print(test_library_run())

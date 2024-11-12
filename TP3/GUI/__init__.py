@@ -1,0 +1,1 @@
+from TP3.GUI.TP3 import init

@@ -4,6 +4,7 @@ from matplotlib import pyplot as plt
 from ttkthemes import ThemedTk
 from TP1 import *
 from TP2 import *
+from TP3 import *
 
 
 def quit_app(window):
@@ -103,6 +104,17 @@ def main_window():
     # creating the tab for TP3
     tab_tp3 = ttk.Frame(tab_control)
     tab_control.add(tab_tp3, text = 'TP 3', sticky = NSEW)
+
+    # creating the content frame for TP3
+    content_tp3 = ttk.Frame(tab_tp3)
+    content_tp3.grid(column = 0, row = 0, ipadx = 60, ipady = 60, sticky = NSEW)
+
+    # setting the grid configuration of the elements
+    tab_tp3.grid_rowconfigure(0, weight=1)
+    tab_tp3.grid_columnconfigure(0, weight = 1)
+
+    # initializing the TP3 Module
+    TP3.GUI.init(content_tp3)
     
     # display the tab controller
     tab_control.pack(expand = True, fill = BOTH, side = TOP)

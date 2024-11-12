@@ -2,7 +2,7 @@ import json
 import unittest
 from datetime import datetime
 from io import StringIO
-from unittest import TestCase
+from unittest import TestCase, TestLoader, TextTestRunner
 from unittest.mock import patch
 
 try:
@@ -260,10 +260,12 @@ class TestBook(TestCase):
         self.assertFalse(ok, "error setting bad publication year.")
         self.assertEqual(book.get_publisher(), "PLON")
 
-def main() -> str:
-    with patch('sys.stdout', new = StringIO()) as fake_out:
-        unittest.main(verbosity=2)
-        return fake_out.getvalue()
+def test_book_run() -> str:
+    test = TestLoader().loadTestsFromTestCase(TestBook)
+    with patch('sys.stdout', new_callable = StringIO) as fake_out:
+        TextTestRunner(stream=fake_out, verbosity=2).run(test)
+        result = fake_out.getvalue()
+        return result
 
 if __name__ == '__main__':
-    print(main())
+    print(test_book_run())
